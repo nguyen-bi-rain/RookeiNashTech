@@ -28,7 +28,7 @@ class Program
             }
             else if (carType == "E")
             {
-                car = new ElectricCar(carMake, carModel, carYear, lastMaintenanceDate);
+                car = (ElectricCar)car;
                 break;
             }
             else
@@ -36,7 +36,6 @@ class Program
                 Console.WriteLine("Invalid car type. Please enter F for FuelCar or E for ElectricCar.");
             }
         }
-
         car.DisplayDetail();
         Chargecar(car);
     }
