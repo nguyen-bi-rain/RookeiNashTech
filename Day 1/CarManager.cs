@@ -19,7 +19,7 @@ namespace Day_1
         };
 
         #region Validation Methods
-        
+
         private FuelType ValidateFuelType(string prompt = "Enter the car Type (Fuel/Electric):")
         {
             FuelType type;
@@ -33,7 +33,7 @@ namespace Day_1
             }
             return type;
         }
-        
+
         private string ValidateStringInput(string fieldName, string prompt = null)
         {
             string input;
@@ -47,7 +47,7 @@ namespace Day_1
             }
             return input;
         }
-        
+
         private int ValidateIntInput(string fieldName, string prompt = null)
         {
             int value;
@@ -60,9 +60,9 @@ namespace Day_1
             }
             return value;
         }
-        
+
         #endregion
-        
+
         public void AddCar()
         {
             try
@@ -71,7 +71,6 @@ namespace Day_1
                 string make = ValidateStringInput("make");
                 string model = ValidateStringInput("model");
                 int year = ValidateIntInput("year");
-                
                 Car car = new Car(make, model, year, type);
                 ListOfCars.Add(car);
                 Console.WriteLine("Car added successfully");
@@ -86,7 +85,7 @@ namespace Day_1
         {
             try
             {
-                if (ListOfCars.Count == 0)
+                if (ListOfCars.Count == 0 || ListOfCars == null)
                 {
                     Console.WriteLine("No cars available in the list");
                     return;
@@ -100,17 +99,12 @@ namespace Day_1
             }
         }
 
-        public void FindCarByMake(string make = null)
+        public void FindCarByMake()
         {
             try
             {
-                if (make == null)
-                {
-                    make = ValidateStringInput("make", "Enter the make to search for:");
-                }
-
+                string make = ValidateStringInput("make", "Enter the make to search for:");
                 var cars = ListOfCars?.FindAll(c => c.Make.Contains(make, StringComparison.OrdinalIgnoreCase));
-
                 if (cars == null || !cars.Any())
                 {
                     Console.WriteLine($"No cars found with make: {make}");
@@ -131,7 +125,6 @@ namespace Day_1
             try
             {
                 FuelType type = ValidateFuelType("Enter the type to filter by (Fuel/Electric):");
-                
                 var cars = ListOfCars?.FindAll(c => c.Type == type);
 
                 if (cars == null || !cars.Any())
@@ -153,7 +146,7 @@ namespace Day_1
             try
             {
                 string model = ValidateStringInput("model", "Enter the model of the car to remove:");
-                
+
                 var carToRemove = ListOfCars.FirstOrDefault(c => c.Model.Equals(model, StringComparison.OrdinalIgnoreCase));
                 if (carToRemove == null)
                 {
@@ -168,7 +161,7 @@ namespace Day_1
                 Console.WriteLine($"An error occurred while removing: {ex.Message}");
             }
         }
-        
+
         public void DisplayCar(List<Car> cars)
         {
             cars.ForEach(car => Console.WriteLine(car.ToString()));
