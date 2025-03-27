@@ -15,15 +15,15 @@ class Program
         var carModel = ValidateCarInforStringInput("Enter Car model: ");
         var carYear = ValidateYearInput("Enter Car year (e.g., 2020): ");
         var lastMaintenanceDate = ValidateTimeInputForMaintenance("Enter last maintenance date (yyyy-MM-dd): ");
-        Car car;
+        Car car = new Car(carMake, carModel, carYear, lastMaintenanceDate);
         while (true)
         {
             Console.WriteLine("Is this a FuelCar or ElectricCar? (F/E): ");
-            var carType = Console.ReadLine()?.Trim().ToUpper();
+            var carType = Console.ReadLine()?.Trim();
 
             if (carType == "F")
             {
-                car = new FuelCar(carMake, carModel, carYear, lastMaintenanceDate);
+                car = (FuelCar)car;
                 break;
             }
             else if (carType == "E")
