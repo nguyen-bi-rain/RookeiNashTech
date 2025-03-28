@@ -5,7 +5,7 @@ namespace Helper
 {
     public static class FileHelper
     {
-        private static readonly string LogFilePath = Path.Combine(Directory.GetCurrentDirectory(), "log.txt");
+        private static readonly string LogFilePath = Path.Combine(Directory.GetCurrentDirectory(),"Logging" ,"log.txt");
 
         public static async Task WriteLogAsync(string message)
         {

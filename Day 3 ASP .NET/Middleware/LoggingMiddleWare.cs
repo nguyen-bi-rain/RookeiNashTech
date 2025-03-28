@@ -22,6 +22,7 @@ namespace Day_3_ASP_.NET.Middleware
             var host = context.Request.Host.ToString();
             var path =  context.Request.Path;
             var query = context.Request.QueryString.ToString();
+            var method = context.Request.Method;
             if(string.IsNullOrEmpty(query.Trim()))
             {
                 query = "The request does not have query string";
@@ -35,6 +36,7 @@ namespace Day_3_ASP_.NET.Middleware
             logMessage.AppendLine($"Schema : {schema}");
             logMessage.AppendLine($"Host : {host}");
             logMessage.AppendLine($"Path : {path}");
+            logMessage.AppendLine($"method : {method}");
             logMessage.AppendLine($"Query : {query}");
             logMessage.AppendLine($"Request Body : {requestBody}");
             logMessage.AppendLine("------------------------------------------");
