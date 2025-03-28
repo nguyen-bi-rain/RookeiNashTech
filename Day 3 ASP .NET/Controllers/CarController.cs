@@ -17,8 +17,16 @@ namespace Day_3_ASP_.NET.Controllers
         [HttpGet("view-car")]
         public IActionResult GetCar(int id)
         {
-            var cars = _carService.Get(id);
-            return Ok(cars);
+            try
+            {
+                var cars = _carService.Get(id);
+                return Ok(cars);
+            }
+            catch (Exception ex)
+            {
+
+               return BadRequest(ex.Message);
+            }
         }
         [HttpPost]
         public IActionResult AddCar([FromBody] Car car)
