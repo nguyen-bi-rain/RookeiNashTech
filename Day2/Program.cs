@@ -14,7 +14,7 @@ class Program
         var carMake = ValidateCarInforStringInput("Enter Car make: ");
         var carModel = ValidateCarInforStringInput("Enter Car model: ");
         var carYear = ValidateYearInput("Enter Car year (e.g., 2020): ");
-        var lastMaintenanceDate = ValidateTimeInputForMaintenance("Enter last maintenance date (yyyy-MM-dd): ");
+        var lastMaintenanceDate = ValidateTimeInput("Enter last maintenance date (yyyy-MM-dd): ");
         Car car;
         while (true)
         {
@@ -46,8 +46,8 @@ class Program
         if (response == "Y")
         {
             if(car is FuelCar fuelCar)
-                fuelCar.Refuel(ValidateTimeInputForCharge("Enter refuel date (yyyy-MM-dd hh:mm): "));
-            else ((ElectricCar)car).Charge(ValidateTimeInputForCharge("Enter charge date (yyyy-MM-dd hh:mm): "));
+                fuelCar.Refuel(ValidateTimeInput("Enter refuel date (yyyy-MM-dd hh:mm): "));
+            else ((ElectricCar)car).Charge(ValidateTimeInput("Enter charge date (yyyy-MM-dd hh:mm): "));
         }
     }
     private static string ValidateCarInforStringInput(string message)
@@ -64,14 +64,14 @@ class Program
             return input;
         } while (true);
     }
-    private static DateTime ValidateTimeInputForMaintenance(string message)
+    private static DateTime ValidateTimeInput(string message)
     {
         do
         {
             // format of date time must be yyyy-mm-dd if wrong throw exception
             Console.Write(message);
             var input = Console.ReadLine();
-            if (!DateTime.TryParseExact(input, "yyyy-MM-dd" , null, System.Globalization.DateTimeStyles.None, out DateTime date))
+            if (!DateTime.TryParseExact(input, new[] { "yyyy-MM-dd","yyyy-MM-dd HH:mm" }, null, System.Globalization.DateTimeStyles.None, out DateTime date))
             {
                 Console.WriteLine("Invalid date and time format or invalid date. Please enter a valid date and time in yyyy-MM-dd HH:mm or yyyy-MM-dd format.");
                 continue;
@@ -80,22 +80,7 @@ class Program
 
         } while (true);
     }
-    private static DateTime ValidateTimeInputForCharge(string message)
-    {
-        do
-        {
-            // format of date time must be yyyy-mm-dd if wrong throw exception
-            Console.Write(message);
-            var input = Console.ReadLine();
-            if (!DateTime.TryParseExact(input, "yyyy-MM-dd HH:mm" , null, System.Globalization.DateTimeStyles.None, out DateTime date))
-            {
-                Console.WriteLine("Invalid date and time format or invalid date. Please enter a valid date and time in yyyy-MM-dd HH:mm or yyyy-MM-dd format.");
-                continue;
-            }
-            return date;
-
-        } while (true);
-    }
+  
     private static int ValidateYearInput(string message)
     {
         do
