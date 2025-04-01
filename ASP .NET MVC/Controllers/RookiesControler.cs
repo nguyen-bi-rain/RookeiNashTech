@@ -51,7 +51,7 @@ namespace ASP_.NET_MVC.Controllers
                 return Content(e.Message);
             }
         }
-        [HttpGet("getmale")]
+        [HttpGet]
         public IActionResult GetListMalePerson()
         {
             var persons = _personService.GetPersonIsMale();
@@ -61,7 +61,7 @@ namespace ASP_.NET_MVC.Controllers
             }
             return View("Index", persons);
         }
-        [HttpGet("getoldest")]
+        [HttpGet]
         public IActionResult GetOldest()
         {
             var person = _personService.GetOldestPerson();
@@ -71,7 +71,7 @@ namespace ASP_.NET_MVC.Controllers
             }
             return View(person);
         }
-        [HttpGet("filter")]
+        [HttpGet]
         public IActionResult FilterPerson([FromQuery] string query, [FromQuery] int year)
         {
             var persons = _personService.FilterPerson(query, year);
@@ -89,32 +89,15 @@ namespace ASP_.NET_MVC.Controllers
         }
         [HttpGet]
         public IActionResult ExportExcelFile(){
-            var persons = _personService.GetAllPerson().ToList();
-
-            using (var package = new OfficeOpenXml.ExcelPackage())
+            var persons = _personService.GetAllPerson();
+            if (persons == null || !persons.Any())
             {
-                var worksheet = package.Workbook.Worksheets.Add("Persons");
-                worksheet.Cells[1, 1].Value = "First Name";
-                worksheet.Cells[1, 2].Value = "Last Name";
-                worksheet.Cells[1, 3].Value = "Date of Birth";
-                worksheet.Cells[1, 4].Value = "Gender";
-
-                for (int i = 0; i < persons.Count; i++)
-                {
-                    worksheet.Cells[i + 2, 1].Value = persons[i].FirstName;
-                    worksheet.Cells[i + 2, 2].Value = persons[i].LastName;
-                    worksheet.Cells[i + 2, 3].Value = persons[i].DateOfBirth.ToShortDateString();
-                    worksheet.Cells[i + 2, 4].Value = persons[i].Gender;
-                }
-
-                var stream = new System.IO.MemoryStream();
-                package.SaveAs(stream);
-                stream.Position = 0;
-
-                var fileName = "Persons.xlsx";
-                var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                return File(stream, contentType, fileName);
+                return Content("No data to export");
             }
+            var fileContent = _personService.GenerateExcelFile(persons);
+            var fileName = "Persons.xlsx";
+            return File(fileContent, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+        
         }
         
         [HttpPost("{id}")]

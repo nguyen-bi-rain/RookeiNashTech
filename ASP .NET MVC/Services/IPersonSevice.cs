@@ -13,8 +13,6 @@ namespace ASP_.NET_MVC.Services
         
         IEnumerable<Person> GetPersonIsMale();
         IEnumerable<Person> FilterPerson(string query,int year);
-        
-        
-        
+        byte [] GenerateExcelFile(IEnumerable<Person> persons); 
     }
 }
