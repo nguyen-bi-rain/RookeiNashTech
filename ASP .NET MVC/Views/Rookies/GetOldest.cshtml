@@ -1,0 +1,69 @@
+﻿@model Person
+@{
+    ViewData["Title"] = "GetOldest";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfBirth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BirthPlace)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsGraduated)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    
+            <tr>
+                <td>
+                   @Model.Id
+                </td>
+                <td>
+                @Model.FirstName
+                </td>
+                <td>
+                @Model.LastName
+                </td>
+                <td>
+                @Model.Gender
+                </td>
+                <td>
+                @Model.DateOfBirth
+                </td>
+                <td>
+                @Model.PhoneNumber
+                </td>
+                <td>
+                @Model.BirthPlace
+                </td>
+                <td>
+                @Html.DisplayFor(i => i.IsGraduated)
+                </td>
+                
+            </tr>
+    </tbody>
+</table>
+
+<a asp-action="Index">Back <-</a>
+

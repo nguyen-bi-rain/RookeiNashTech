@@ -1,0 +1,14 @@
+@model IEnumerable<string>
+@{
+    ViewData["Title"] = "GetFullName";
+}
+
+
+
+<div>
+    @{
+        foreach(var i in Model){
+            <p>@i</p>
+        }
+    }
+</div>
