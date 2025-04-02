@@ -33,7 +33,9 @@ namespace ASP_.NET_MVC.Repository
 
         public Person GetById(int id)
         {
-            return _context.Persons.FirstOrDefault(u => u.Id == id);
+            var person = _context.Persons.FirstOrDefault(u => u.Id == id);
+            if (person == null) throw new Exception("Person not found");
+            return person;
         }
 
         public void Update(Person person)

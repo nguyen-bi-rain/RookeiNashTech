@@ -9,10 +9,10 @@ namespace ASP_.NET_MVC.Services
         void DeletePerson(int id);
         Person GetPersonById(int id);
         IEnumerable<Person> GetAllPerson();
-        Person GetOldestPerson();
-        
+        Person GetOldestPerson();        
         IEnumerable<Person> GetPersonIsMale();
         IEnumerable<Person> FilterPerson(string query,int year);
         byte [] GenerateExcelFile(IEnumerable<Person> persons); 
+        List<string> GetFullNameList(IEnumerable<Person> persons);
     }
 }

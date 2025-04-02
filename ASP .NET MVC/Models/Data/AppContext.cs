@@ -17,7 +17,5 @@ namespace ASP_.NET_MVC.Models.Data
             new Person(5,"Truong","Thanh Bao", GenderType.Female, DateTime.Parse("2003-05-20"),"3084380444","QuangNinh",false),
              };
         public List<Person> Persons { get => _persons; set => _persons = value; }
-
-
     }
 }

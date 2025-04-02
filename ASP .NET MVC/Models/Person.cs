@@ -7,7 +7,7 @@ namespace ASP_.NET_MVC.Models
 {
     public class Person
     {
-        public Person() { } // Constructor mặc định
+        public Person() { }
 
         public Person(int id, string firstName, string lastName, GenderType gender, DateTime dateOfBirth, string phoneNumber, string birthPlace, bool isGraduated)
         {
