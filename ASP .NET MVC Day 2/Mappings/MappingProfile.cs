@@ -8,7 +8,7 @@ namespace ASP_.NET_MVC_Day_2.Mappings
     {
         public MappingProfile()
         {
-            CreateMap<Person,PersonDTO>();
+            CreateMap<Person,PersonDTO>().ReverseMap();
             CreateMap<PersonCreateDTO, Person>();
             CreateMap<PersonUpdatedDTO, Person>();
         }

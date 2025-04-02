@@ -92,49 +92,6 @@ namespace ASP_.NET_MVC.Controllers
             return File(fileContent, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         
         }
-        
-        [HttpPost("{id}")]
-        public IActionResult DeleteUser(int id)
-        {
-            try
-            {
-                _personService.DeletePerson(id);
-                return NoContent();
-            }
-            catch (Exception e)
-            {
-                return Content(e.Message);
-            }
-        }
 
-        [HttpGet("{id}")]
-        public IActionResult Edit(int id)
-        {
-            var person = _personService.GetPersonById(id);
-            if (person == null)
-            {
-                return Content("Person not found");
-            }
-            return View(person);
-        }
-
-        [HttpPut("{id}")]
-        public IActionResult Edit(int id, Person person)
-        {
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    return View(person);
-                }
-                _personService.UpdatePerson(id, person);
-                return RedirectToAction("Index");
-            }
-            catch (Exception e)
-            {
-                return Content(e.Message);
-            }
-        }
-        
     }
 }

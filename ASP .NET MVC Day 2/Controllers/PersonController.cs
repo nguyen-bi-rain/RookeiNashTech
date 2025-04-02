@@ -85,5 +85,52 @@ namespace ASP_.NET_MVC_Day_2.Controllers
             return RedirectToAction("Confirmation",new {name = $"{personRemoved.FirstName} {personRemoved.LastName}"});
         }
 
+        [HttpGet("GetListMalePerson")]
+        public IActionResult GetListMalePerson()
+        {
+            var persons = _personService.GetPersonIsMale();
+            if (persons.Count() == 0)
+            {
+                return Content("No Male Found");
+            }
+            return View( persons);
+        }
+
+        [HttpGet("GetOldestPerson")]
+        public IActionResult GetOldest()
+        {
+            var person = _personService.GetOldestPerson();
+            return View(person);
+        }
+
+        [HttpGet("FilterPerson")]
+        public IActionResult FilterPerson([FromQuery] string query, [FromQuery] int year)
+        {
+            var persons = _personService.FilterPerson(query, year);
+            if (persons == null)
+            {
+                return Content("Invalid query");
+            }
+            return View(persons);
+        }
+
+        [HttpGet("GetFullNames")]
+        public IActionResult GetFullNames(){
+            var fullNames = _personService.GetFullNameList(_personService.GetAllPerson(1));
+            return View(fullNames);
+        }
+
+        [HttpGet("ExportExcelFile")]
+        public IActionResult ExportExcelFile(){
+            var persons = _personService.GetAllPerson(1);
+            if (persons == null || !persons.Any())
+            {
+                return Content("No data to export");
+            }
+            var fileContent = _personService.GenerateExcelFile(persons);
+            var fileName = "Persons.xlsx";
+            return File(fileContent, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+        }
+
     }
 }

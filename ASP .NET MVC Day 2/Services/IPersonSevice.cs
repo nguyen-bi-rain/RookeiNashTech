@@ -9,5 +9,10 @@ namespace ASP_.NET_MVC_Day_2.Services
         void AddPerson(PersonCreateDTO person);
         void UpdatePerson(Guid id,PersonUpdatedDTO person);
         void DeletePerson(Guid id);
+        PersonDTO GetOldestPerson();        
+        IEnumerable<PersonDTO> GetPersonIsMale();
+        IEnumerable<PersonDTO> FilterPerson(string query,int year);
+        byte [] GenerateExcelFile(IEnumerable<PersonDTO> persons); 
+        List<string> GetFullNameList(IEnumerable<PersonDTO> persons);
     }
 }
