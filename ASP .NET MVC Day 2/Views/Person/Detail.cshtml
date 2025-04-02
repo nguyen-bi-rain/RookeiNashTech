@@ -1,0 +1,40 @@
+﻿@model ASP_.NET_MVC_Day_2.Models.DTO.PersonDTO
+
+@{
+    ViewData["Title"] = "Detail";
+}
+
+
+<div class="card shadow-sm p-4">
+    <h4 class="text-secondary">Person Information</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3 font-weight-bold">@Html.DisplayNameFor(model => model.FirstName)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.FirstName)</dd>
+
+        <dt class="col-sm-3 font-weight-bold">@Html.DisplayNameFor(model => model.LastName)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.LastName)</dd>
+
+        <dt class="col-sm-3 font-weight-bold">@Html.DisplayNameFor(model => model.Gender)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Gender)</dd>
+
+        <dt class="col-sm-3 font-weight-bold">@Html.DisplayNameFor(model => model.DateOfBirth)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.DateOfBirth)</dd>
+
+        <dt class="col-sm-3 font-weight-bold">@Html.DisplayNameFor(model => model.PhoneNumber)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.PhoneNumber)</dd>
+
+        <dt class="col-sm-3 font-weight-bold">@Html.DisplayNameFor(model => model.BirthPlace)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.BirthPlace)</dd>
+
+        <dt class="col-sm-3 font-weight-bold">@Html.DisplayNameFor(model => model.IsGraduated)</dt>
+        <dd class="col-sm-9">@(@Model.IsGraduated ? "Yes" : "No")</dd>
+    </dl>
+</div>
+
+<div class="mt-4 d-flex justify-content-between">
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    <form asp-action="Delete" asp-route-id="@Model.Id" asp-controller="Person"  method="post" onsubmit="return confirm('Are you sure you want to delete this item?');">
+        <input type="submit" value="Delete" class="btn btn-danger" /> 
+    </form>
+</div>
