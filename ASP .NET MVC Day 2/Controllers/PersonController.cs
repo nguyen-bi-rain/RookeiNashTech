@@ -1,3 +1,5 @@
+using System.Collections;
+using ASP_.NET_MVC_Day_2.Helpers;
 using ASP_.NET_MVC_Day_2.Models.DTO;
 using ASP_.NET_MVC_Day_2.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -13,10 +15,14 @@ namespace ASP_.NET_MVC_Day_2.Controllers
             _personService = personService;
         }
         [HttpGet]
-        public IActionResult Index(int page=1)
+        public IActionResult Index(int page = 1)
         {
             var persons = _personService.GetAllPerson(page);
-            return View(persons);
+
+            // Fixing the syntax issues and properly initializing the PaginatedList
+            var pageList = PaginatedList<PersonDTO>.Create(persons.AsQueryable(), page, 10);
+
+            return View(pageList);
         }
 
         [HttpGet("Create")]
@@ -54,6 +60,7 @@ namespace ASP_.NET_MVC_Day_2.Controllers
         [HttpPost("Edit/{id}")]
         public IActionResult Edit(Guid id, PersonUpdatedDTO person)
         {
+
             if (!ModelState.IsValid)
             {
                 return View(person);
