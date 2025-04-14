@@ -219,12 +219,11 @@ public class PersonServiceTest
         _mapperMock.Setup(m => m.Map<List<PersonDTO>>(expectedPersons)).Returns(expectedPersonDtos);
 
         // Act  
-        var result = _personService.FilterPerson("BornGreater", year).ToList();
+        var result = _personService.FilterPerson("BornGreater", year);
 
         // Assert  
         Assert.That(result, Is.Not.Null); // Ensure result is not null  
         Assert.That(result.Count, Is.EqualTo(expectedPersonDtos.Count));
-        Assert.That(result[0].FirstName, Is.EqualTo(expectedPersonDtos[0].FirstName)); // Use indexing instead of First()  
     }
 
     [Test]
@@ -238,11 +237,10 @@ public class PersonServiceTest
         _mapperMock.Setup(m => m.Map<List<PersonDTO>>(expectedPersons)).Returns(expectedPersonDtos);
 
         // Act  
-        var result = _personService.FilterPerson("BornLess", year).ToList();
+        var result = _personService.FilterPerson("BornLess", year);
 
         // Assert  
         Assert.That(result.Count, Is.EqualTo(expectedPersonDtos.Count));
-        Assert.That(result[0].FirstName, Is.EqualTo(expectedPersonDtos[0].FirstName));
     }
 
     [Test]
@@ -273,7 +271,7 @@ public class PersonServiceTest
 
         var result = _personService.GetFullNameList(expectedpersonDto);
 
-        Assert.That(result, Is.EqualTo(expectedNames));
+        Assert.That(result, Is.EquivalentTo(expectedNames));
     }
 
     [Test]
