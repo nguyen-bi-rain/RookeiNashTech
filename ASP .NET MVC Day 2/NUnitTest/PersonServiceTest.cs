@@ -216,6 +216,7 @@ public class PersonServiceTest
         var expectedPersons = _mockPersons.Where(x => x.DateOfBirth.Year > year).ToList();
         var expectedPersonDtos = expectedPersons.Select(p => new PersonDTO { FirstName = p.FirstName }).ToList();
 
+        _personRepositoryMock.Setup(r => r.GetAll()).Returns(_mockPersons);
         _mapperMock.Setup(m => m.Map<List<PersonDTO>>(expectedPersons)).Returns(expectedPersonDtos);
 
         // Act  
@@ -223,7 +224,7 @@ public class PersonServiceTest
 
         // Assert  
         Assert.That(result, Is.Not.Null); // Ensure result is not null  
-        Assert.That(result.Count, Is.EqualTo(expectedPersonDtos.Count));
+        Assert.That(result.Count(), Is.EqualTo(expectedPersonDtos.Count));
     }
 
     [Test]
@@ -234,13 +235,15 @@ public class PersonServiceTest
         var expectedPersons = _mockPersons.Where(x => x.DateOfBirth.Year < year).ToList();
         var expectedPersonDtos = expectedPersons.Select(p => new PersonDTO { FirstName = p.FirstName }).ToList();
 
+        _personRepositoryMock.Setup(r => r.GetAll()).Returns(_mockPersons);
         _mapperMock.Setup(m => m.Map<List<PersonDTO>>(expectedPersons)).Returns(expectedPersonDtos);
 
         // Act  
         var result = _personService.FilterPerson("BornLess", year);
 
         // Assert  
-        Assert.That(result.Count, Is.EqualTo(expectedPersonDtos.Count));
+        Assert.That(result, Is.Not.Null); // Ensure result is not null  
+        Assert.That(result.Count(), Is.EqualTo(expectedPersonDtos.Count));
     }
 
     [Test]
@@ -264,13 +267,22 @@ public class PersonServiceTest
     [Test]
     public void GetFullNameList_ReturnsFullNameOfPerson()
     {
+        // Arrange  
         var expectedNames = _mockPersons.Select(p => $"{p.FirstName} {p.LastName}").ToList();
-        var expectedpersonDto = new List<PersonDTO>();
-        _mapperMock.Setup(m => m.Map<List<PersonDTO>>(_mockPersons))
-            .Returns(expectedpersonDto);
+        _personRepositoryMock.Setup(r => r.GetAll()).Returns(_mockPersons);
+        var personDtos = _mockPersons.Select(p => new PersonDTO
+        {
+            FirstName = p.FirstName,
+            LastName = p.LastName
+        }).ToList();
 
-        var result = _personService.GetFullNameList(expectedpersonDto);
+        _mapperMock.Setup(m => m.Map<IEnumerable<PersonDTO>>(It.IsAny<IEnumerable<Person>>()))
+            .Returns(personDtos);
 
+        // Act  
+        var result = _personService.GetFullNameList(personDtos);
+
+        // Assert  
         Assert.That(result, Is.EquivalentTo(expectedNames));
     }
 
